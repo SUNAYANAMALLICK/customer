@@ -13,7 +13,10 @@ public class CustomerConstants {
     public static final String CUST_NOT_FOUND = "Customer not found with ID ";
 
 
-
+    /****  Success Message   ****/
     public static final String CUSTOMER_CREATED = "Customer Created.";
+
+    /****  Request Mapping   ****/
+    public static final String ROOT_PATH = "/api/v1/customer";
 
 }

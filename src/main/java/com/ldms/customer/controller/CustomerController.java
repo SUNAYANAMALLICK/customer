@@ -8,13 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.ldms.customer.constant.CustomerConstants.CUSTOMER_CREATED;
-import static com.ldms.customer.constant.CustomerConstants.CUST_NOT_FOUND;
+import static com.ldms.customer.constant.CustomerConstants.*;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("/api/v1/customer")
+@RequestMapping(ROOT_PATH)
 public class CustomerController {
 
     @Autowired
