@@ -32,6 +32,8 @@ public class CustomerControllerTest {
 
     private String invalidCustomer = "{\"customerId\": 12, \"name\": \"John Doe\",  \"dateOfBirth\": \"2020-01-31T14:36:07.158Z\" , \"title\": \"BBB\"}";
 
+   private final String path = "/api/v1/customer";
+
 
     private Customer customer;
 
@@ -45,7 +47,7 @@ public class CustomerControllerTest {
 
     @Test
     void createCustomer_ValidInput_ReturnsCreated() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/customer")
+        mockMvc.perform(MockMvcRequestBuilders.post(path)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validCustomer))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -55,7 +57,7 @@ public class CustomerControllerTest {
 
    @Test
     void createCustomer_InvalidInput_Invalid_CustomerID() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/customer")
+        mockMvc.perform(MockMvcRequestBuilders.post(path)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(invalidCustomer))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -66,7 +68,7 @@ public class CustomerControllerTest {
 
         Long id = customerRepository.save(customer).getId();
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/customer/{customerId}", 1203L)
+        mockMvc.perform(MockMvcRequestBuilders.get(path + "/{customerId}", 1203L)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(String.valueOf(Boolean.TRUE)));
@@ -76,10 +78,10 @@ public class CustomerControllerTest {
     @Test
     void getCustomerById_InvalidId_ReturnsNotFound() throws Exception {
         // Mocking the service response for an invalid ID
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/customer/{customerId}", 12L)
+        mockMvc.perform(MockMvcRequestBuilders.get(path + "/{customerId}", 12L)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.content().string("Customer not found with ID: 12"));
+                .andExpect(MockMvcResultMatchers.content().string("Customer not found with ID : 12"));
 
     }
 

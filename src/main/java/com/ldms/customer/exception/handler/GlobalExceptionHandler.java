@@ -22,10 +22,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleCustomerValidationException(InvalidCustomerException ex) {
         return new ResponseEntity<>(VALIDATION_ERROR + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
-
-    // Add more exception handlers as needed...
-
-    // Generic exception handler for unhandled exceptions
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGenericException(Exception ex) {
         return new ResponseEntity<>(UNEXPECTED_ERROR + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
