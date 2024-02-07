@@ -8,6 +8,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import static com.ldms.customer.constant.CustomerConstants.UNEXPECTED_ERROR;
+import static com.ldms.customer.constant.CustomerConstants.VALIDATION_ERROR;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(CustomerNotFoundException.class)
@@ -17,8 +20,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidCustomerException.class)
     public ResponseEntity<String> handleCustomerValidationException(InvalidCustomerException ex) {
-        String errorMessage = ex.getMessage();
-        return new ResponseEntity<>("Validation Error: " + errorMessage, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(VALIDATION_ERROR + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     // Add more exception handlers as needed...
@@ -26,6 +28,6 @@ public class GlobalExceptionHandler {
     // Generic exception handler for unhandled exceptions
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGenericException(Exception ex) {
-        return new ResponseEntity<>("An unexpected error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(UNEXPECTED_ERROR + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
