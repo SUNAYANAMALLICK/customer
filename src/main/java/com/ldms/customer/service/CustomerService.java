@@ -5,6 +5,8 @@ import com.ldms.customer.exception.InvalidCustomerException;
 import com.ldms.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.ldms.customer.constant.CustomerConstants.DUPLICATE_CUSTOMER;
 import static com.ldms.customer.constant.CustomerConstants.ID_LENGTH;
 
 @Service
@@ -17,7 +19,7 @@ public class CustomerService {
         if (customerId == null || customerId<=99){
             throw new InvalidCustomerException(ID_LENGTH + customerId);
         } else if (customerRepository.findByCustomerId(customerId).isPresent()) {
-            throw new InvalidCustomerException(ID_LENGTH + customerId);
+            throw new InvalidCustomerException(DUPLICATE_CUSTOMER + customerId);
         }
     }
 
