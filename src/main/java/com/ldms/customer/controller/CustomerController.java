@@ -35,9 +35,4 @@ public class CustomerController {
         return new ResponseEntity<>(CUSTOMER_CREATED, CREATED);
     }
 
-//    @PostMapping(value = "/bulk")
-//    public ResponseEntity<String> createCustomer(@RequestBody @Valid final List<Customer> customers){
-//        return new ResponseEntity<>(customerService.upload(customers) + " records uploaded in the system.", CREATED);
-//    }
-
 }

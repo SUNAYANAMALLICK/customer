@@ -19,29 +19,22 @@ import java.time.LocalDateTime;
 @AutoConfigureMockMvc
 public class CustomerControllerTest {
 
+    private final String path = "/api/v1/customer";
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private CustomerRepository customerRepository;
-
     @Autowired
     private CustomerService customerService;
-
     private String validCustomer = "{\"customerId\": 123, \"name\": \"Master John Doe\",  \"dateOfBirth\": \"2024-01-31T14:36:07.158Z\" , \"title\": \"BBB\"}";
-
-    private String invalidCustomer = "{\"customerId\": 12, \"name\": \"John Doe\",  \"dateOfBirth\": \"2020-01-31T14:36:07.158Z\" , \"title\": \"BBB\"}";
-
-   private final String path = "/api/v1/customer";
-
-
+    private String invalidCustomerId = "{\"customerId\": 12, \"name\": \"John Doe\",  \"dateOfBirth\": \"2020-01-31T14:36:07.158Z\" , \"title\": \"BBB\"}";
     private Customer customer;
 
     @BeforeEach
     void setUp() {
         // Perform setup before each test
-         customer = Customer.builder().name("John Daw").customerId(1203L).title("Mr.")
-                .dateOfBirth(LocalDateTime.of(1990,12,22,13,20)).build();
+        customer = Customer.builder().name("John Daw").customerId(1203L).title("Mr.")
+                .dateOfBirth(LocalDateTime.of(1990, 12, 22, 13, 20)).build();
 
     }
 
@@ -55,11 +48,11 @@ public class CustomerControllerTest {
         customerRepository.deleteAll();
     }
 
-   @Test
+    @Test
     void createCustomer_InvalidInput_Invalid_CustomerID() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(path)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(invalidCustomer))
+                        .content(invalidCustomerId))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
